@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Blog</title>
+</head>
+<body>
+   <h2 class="card-title">{{ post.title }}</h2>
+   <h4 class="card-title">{{ post.created_at }}</h4>
+   {{ post.short_description }}
+   {% if post.image %}
+      {{ post.image }}
+   {% endif %}
+      <h4 class="card-title">{{ post.message }}</h4>
+   <tr>
+   Всего комментариев - {{comments_count}}
+   <h4>==========================</h4>
+   {% for comment in comments_list %}
+      <h3 class="card-title">{{ comment.created_at }}. {{ comment.user_name }}</h3>
+      {{ comment.message }}
+      <h4>----------------------------------------------------</h4>
+
+   {% endfor %}
+</body>
+</html>
