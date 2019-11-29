@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<b>Personal information:</b>
+<h4 class="display-7">{{ user.nickname }} ( {{ user.name }} {{ user.surname }} )</h4>
+<hr>
+<b>email:</b> {{user.email}} <br>
+<b>phone:</b> {{user.phone}} <br>
+<b>date_joined:</b>  {{user.date_joined}}<br>
+<b>last_login:</b>  {{user.last_login}}<br>
+
+<hr>
+{% include 'post_list.html' %}
+
+{% endblock content %}

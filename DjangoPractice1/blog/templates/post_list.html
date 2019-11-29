@@ -1,0 +1,59 @@
+{% block content %}
+
+{% if user.is_authenticated %}
+
+   <h7 class="display-7"> Total posts - {{total_posts_count}}</h7>
+   <h7 class="display-7"> Total comments - {{total_comments_count}}</h7>
+   <hr>
+   <hr>
+   {% for post in post_list %}
+      <a href="{{ post.get_absolute_url }}"><h3 class="card-title">{{ post.id }}. {{ post.title }}</h3></a>
+      <h6 class="card-title">{{ post.created_at }} created by
+      {% if user.pk == post.user_id.pk %}
+          <b><font color="red" >{{post.user_id.nickname}}</font></b>
+      {% else %}
+          {{post.user_id.nickname}}
+      {% endif %}
+      </h6>
+      <br>
+      <b>{{ post.short_description }}</b>
+      {% if post.image %}
+          <a href="{{ post.get_absolute_url }}"><img class="card-img" height="100" src="{{ post.image.url }}" alt="Vans"></a>
+      {% endif %}
+      <br>
+     {% for comment in comments_list %}
+         {% if post.pk == comment.post_id.pk %}
+            <h7 class="card-title">{{ comment.created_at }} created by {{ comment.user_id.nickname }}</h7>
+            <br>
+            <b>{{ comment.message }}</b>
+            <hr>
+         {% endif %}
+      {% endfor %}
+      <h7 class="card-title">Total comments: {{post.get_comments_count}}</h7>
+      <hr>
+
+   {% empty %}
+      Постов не найдено
+   {% endfor %}
+
+  {% if post_list.has_previous %}
+    <a href="?page={{ post_list.previous_page_number }}"><b><<</b> </a>
+  {% endif %}
+
+  {% for post in post_list.paginator.page_range %}
+    {% if post == post_list.number %}
+      {{ page }}
+    {% else %}
+      <a href="?page={{ page }}">{{ page }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if post_list.has_next %}
+    <a href="?page={{ post_list.next_page_number }}"><b>>></b></a>
+  {% endif %}
+
+{% else %}
+    <a class="nav-link" href="{% url 'users:login' %}">Please login</a>
+{% endif %}
+
+{% endblock content %}

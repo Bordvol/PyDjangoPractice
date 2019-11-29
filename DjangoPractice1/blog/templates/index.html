@@ -1,29 +1,6 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Blog</title>
-</head>
-<body>
-   <h4 class="display-2"> Всего постов - {{total_count}}</h4>
-   <a href="/posts">показать все посты</a>
-   <h4>==========================</h4>
-   {% for post in post_list %}
-      <a href="{{ post.get_absolute_url }}"><h3 class="card-title">{{ post.id }}. {{ post.title }}</h3></a>
-      <h4 class="card-title">{{ post.created_at }}</h4>
-      {{ post.short_description }}
-      {% if post.image %}
-          <a href="{{ post.get_absolute_url }}"><img class="card-img" height="100" src="{{ post.image.url }}" alt="Vans"></a>
-      {% else %}
-          <a href="{{ post.get_absolute_url }}"><img class="card-img" height="100" src="{% static 'img/no_img.png' %}" alt="Vans"></a>
-      {% endif %}
-      <h4 class="card-title">Коментариев - {{post.get_comments_count}}</h4>
-      <h4>----------------------------------------------------</h4>
+{% block content %}
 
-   {% empty %}
-      Постов не найдено
-   {% endfor %}
-
-</body>
-</html>
+{% include 'post_list.html' %}
+{% endblock content %}
