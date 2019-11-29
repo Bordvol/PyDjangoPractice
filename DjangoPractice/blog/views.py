@@ -55,8 +55,6 @@ class AddCommentView(FormView):
     user = get_user_model()
 
     def post(self, request, *args, **kwargs):
-        print(request.POST.get("add_comment"))
-        print(request.POST.get("pk"))
 
         comment = blog_models.comment()
         comment.message = request.POST.get("add_comment")
